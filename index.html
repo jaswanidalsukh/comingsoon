@@ -37,6 +37,14 @@
     padding: 1rem;
   }
 
+  .container.night {
+    background-color: var(--night-bg);
+  }
+
+  .container.day {
+    background-color: var(--day-bg);
+  }
+
   .header {
     position: absolute;
     top: 40px;
@@ -267,7 +275,7 @@
       <span class="slider"></span>
     </label>
   </div>
-  <div class="container" id="container">
+  <div class="container day" id="container">
     <div class="symbol" id="symbol">☀️</div>
     <img src="day products.png" alt="Day Products" class="product-image day" id="productImageDay">
     <img src="night products.png" alt="Night Products" class="product-image night" id="productImageNight" style="display:none">
@@ -292,27 +300,26 @@
       if (isDay) {
         body.classList.remove('day');
         body.classList.add('night');
+        container.classList.remove('day');
+        container.classList.add('night');
         symbol.textContent = '🌙';
         dayImg.style.display = 'none';
         nightImg.style.display = 'inline-block';
-        container.style.backgroundImage = "url('night-products.jpg')";
-        container.style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--night-bg');
       } else {
         body.classList.remove('night');
         body.classList.add('day');
+        container.classList.remove('night');
+        container.classList.add('day');
         symbol.textContent = '☀️';
         nightImg.style.display = 'none';
         dayImg.style.display = 'inline-block';
-        container.style.backgroundImage = "url('day-products.jpg')";
-        container.style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--day-bg');
       }
 
       isDay = !isDay;
     }
 
     const container = document.getElementById('container');
-    container.style.backgroundImage = "url('day-products.jpg')";
-    container.style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--day-bg');
+    container.classList.add('day');
   </script>
 
   <div class="bottom-banner">

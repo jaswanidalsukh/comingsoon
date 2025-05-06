@@ -110,12 +110,40 @@
 <body>
   <div class="form-container">
     <h1>Join the Waitlist</h1>
-    <form id="waitlistForm" <form action="thank-you.html" method="POST">        >
-      <input type="text" name="name" placeholder="Your Name" required>
-      <input type="email" name="email" placeholder="Your Email" required>
-      <textarea name="message" rows="4" placeholder="Anything you'd like to tell us?"></textarea>
-      <button type="submit">Submit</button>
-    </form>
+    <form id="waitlistForm">
+        <input type="text" name="name" placeholder="Your Name" required>
+        <input type="email" name="email" placeholder="Your Email" required>
+        <textarea name="message" rows="4" placeholder="Anything you'd like to tell us?"></textarea>
+        <button type="submit">Submit</button>
+      </form>
+      
+      <script>
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbzGTjtYWX5vTlNvOxjDKcULZDx0YMQhcEc_Cb98a0039mtDnG0QcFiih4WHf1BB6-jbCg/exec'; // ← Replace this
+      
+        document.getElementById('waitlistForm').addEventListener('submit', function(e) {
+          e.preventDefault();
+          const form = e.target;
+          const data = {
+            name: form.name.value,
+            email: form.email.value,
+            message: form.message.value
+          };
+      
+          fetch(scriptURL, {
+            method: 'POST',
+            body: JSON.stringify(data)
+          })
+          .then(response => {
+            if (response.ok) {
+              window.location.href = 'thank-you.html'; // redirect
+            } else {
+              alert('Something went wrong. Try again.');
+            }
+          })
+          .catch(error => alert('Error: ' + error.message));
+        });
+      </script>
+      
   </div>
 
   <div class="success-overlay" id="successOverlay">

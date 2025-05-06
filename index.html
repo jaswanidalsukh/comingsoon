@@ -34,6 +34,7 @@
     background-repeat: no-repeat;
     transition: background-image 0.5s ease, background-color 0.5s ease;
     background-color: var(--day-bg);
+    padding: 1rem;
   }
 
   .header {
@@ -58,6 +59,26 @@
     font-weight: 400;
     margin-top: 8px;
     opacity: 0.8;
+  }
+
+  .waitlist-button {
+    position: absolute;
+    top: 20px;
+    left: 30px;
+    background-color: var(--day-text);
+    color: var(--day-bg);
+    border: none;
+    padding: 8px 14px;
+    font-size: 0.95rem;
+    border-radius: 999px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.5s ease, color 0.5s ease;
+  }
+
+  .night .waitlist-button {
+    background-color: var(--night-text);
+    color: var(--night-bg);
   }
 
   .toggle-container {
@@ -124,7 +145,7 @@
 
   .product-image {
     width: 380px;
-    max-width: 80%;
+    max-width: 90vw;
     margin-top: 20px;
     transition: opacity 0.5s ease;
     border-radius: 8px;
@@ -196,108 +217,44 @@
     border-top: 1px solid rgba(255, 255, 255, 0.1);
   }
 
-  @media (max-width: 1024px) {
-    .header {
-      font-size: 2rem;
-      top: 30px;
-    }
-    .header span {
-      font-size: 1.2rem;
-    }
-    .toggle-container {
-      top: 18px;
-      right: 24px;
-    }
-    .symbol {
-      font-size: 2.6rem;
-      margin-top: -120px;
-    }
-    .product-image {
-      width: 85%;
-      max-width: 480px;
-    }
-    .social-links {
-      bottom: 70px;
-      right: 24px;
-      gap: 14px;
-    }
-    .social-links a img {
-      width: 22px;
-      height: 22px;
-    }
-    .bottom-banner {
-      font-size: 1.25rem;
-      padding: 5px 0;
-    }
-  }
-
   @media (max-width: 768px) {
     .header {
-      font-size: 1.4rem;
-      top: 20px;
+      font-size: 1.8rem;
     }
     .header span {
-      font-size: 0.95rem;
-    }
-    .toggle-container {
-      top: 16px;
-      right: 16px;
+      font-size: 1.1rem;
     }
     .symbol {
-      font-size: 2rem;
+      font-size: 2.4rem;
       margin-top: -100px;
     }
-    .product-image {
-      width: 90%;
-      max-width: 320px;
-    }
-    .social-links {
-      bottom: 90px;
-      right: 16px;
-      gap: 10px;
-    }
-    .social-links a img {
-      width: 20px;
-      height: 20px;
-    }
-    .bottom-banner {
-      font-size: 1rem;
-      padding: 4px 0;
+    .waitlist-button {
+      font-size: 0.85rem;
+      padding: 6px 10px;
     }
   }
 
   @media (max-width: 480px) {
     .header {
-      font-size: 1.2rem;
+      font-size: 1.4rem;
     }
     .header span {
       font-size: 0.9rem;
     }
     .symbol {
-      font-size: 1.8rem;
+      font-size: 2rem;
       margin-top: -80px;
     }
-    .product-image {
-      width: 95%;
-      max-width: 280px;
-    }
-    .social-links {
-      bottom: 100px;
-      right: 10px;
-      gap: 8px;
-    }
-    .social-links a img {
-      width: 18px;
-      height: 18px;
-    }
-    .bottom-banner {
-      font-size: 0.9rem;
-      padding: 3px 0;
+    .waitlist-button {
+      font-size: 0.75rem;
+      padding: 5px 8px;
     }
   }
 </style>
 </head>
 <body class="day">
+
+  <a href="waitlist.html" class="waitlist-button">Join the Waitlist</a>
 
   <div class="header">
     bare formulas

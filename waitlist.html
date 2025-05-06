@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Join the Waitlist – Bare Formulas</title>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Manrope', sans-serif;
+      background: url('waitlist-bg.png') no-repeat center center/cover;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .form-container {
+      background-color: rgba(255, 255, 255, 0.9);
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
+    }
+
+    h1 {
+      margin-bottom: 1rem;
+      font-size: 1.8rem;
+    }
+
+    form input, form textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
+    }
+
+    button {
+      margin-top: 1rem;
+      padding: 10px 20px;
+      background-color: #1e1e1e;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #333;
+    }
+
+    .success-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(31, 27, 36, 0.9);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s ease;
+    }
+
+    .success-overlay.show {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .success-message {
+      text-align: center;
+      animation: scaleFadeIn 0.6s ease forwards;
+    }
+
+    .success-message h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    @keyframes scaleFadeIn {
+      0% {
+        transform: scale(0.8);
+        opacity: 0;
+      }
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .form-container {
+        margin: 0 1rem;
+        padding: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <h1>Join the Waitlist</h1>
+    <form id="waitlistForm" <form action="thank-you.html" method="POST">        >
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="email" name="email" placeholder="Your Email" required>
+      <textarea name="message" rows="4" placeholder="Anything you'd like to tell us?"></textarea>
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
+  <div class="success-overlay" id="successOverlay">
+    <div class="success-message">
+      <h2>You're on the list! ✅</h2>
+      <p>We'll let you know when we launch.</p>
+    </div>
+  </div>
+
+  <script>
+    function showSuccess(event) {
+      event.preventDefault();
+      document.getElementById('successOverlay').classList.add('show');
+      setTimeout(() => {
+        document.getElementById('successOverlay').classList.remove('show');
+        document.getElementById('waitlistForm').reset();
+        window.location.href = 'thank-you.html'; // ✅ this is what connects to the thank-you page
+      }, 5000); // 5 seconds delay before redirecting
+    }
+  </script>  
+</body>
+</html>

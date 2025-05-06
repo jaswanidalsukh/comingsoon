@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thank You – bare formulas</title>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Manrope', sans-serif;
+      background: linear-gradient(-45deg, #1f1b24, #f4f1ec, #1f1b24);
+      background-size: 400% 400%;
+      animation: fadeLoop 15s ease infinite;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      text-align: center;
+    }
+
+    @keyframes fadeLoop {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .thank-you-message {
+      max-width: 480px;
+      padding: 2rem;
+    }
+
+    .thank-you-message h1 {
+      font-size: 2.4rem;
+      margin-bottom: 1rem;
+    }
+
+    .thank-you-message p {
+      font-size: 1.2rem;
+      opacity: 0.85;
+    }
+
+    .logo {
+      font-size: 2rem;
+      font-weight: 600;
+      margin-bottom: 2rem;
+      opacity: 0.9;
+      text-transform: lowercase;
+    }
+
+    .home-button {
+      display: inline-block;
+      margin-top: 2rem;
+      padding: 10px 20px;
+      font-size: 1rem;
+      border: 2px solid #fff;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 999px;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .home-button:hover {
+      background-color: #fff;
+      color: #1f1b24;
+    }
+
+    @media (max-width: 480px) {
+      .thank-you-message h1 {
+        font-size: 2rem;
+      }
+      .thank-you-message p {
+        font-size: 1rem;
+      }
+      .logo {
+        font-size: 1.6rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="thank-you-message">
+    <div class="logo">bf</div>
+    <h1>Thank You for Joining!</h1>
+    <p>You’re officially on the waitlist. We’ll be in touch when <strong>bare formulas</strong> is ready to launch.</p>
+    <a href="index.html" class="home-button">Back to Home</a>
+  </div>
+</body>
+</html>

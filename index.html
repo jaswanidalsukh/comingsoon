@@ -6,320 +6,225 @@
   <title>Bare Formulas – Coming Soon</title>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600&display=swap" rel="stylesheet">
   <style>
-  :root {
-    --day-bg: #f4f1ec;
-    --night-bg: #1f1b24;
-    --day-text: #1e1e1e;
-    --night-text: #f4f1ec;
-  }
+    :root {
+      --day-bg: #f4f1ec;
+      --night-bg: #1f1b24;
+      --day-text: #1e1e1e;
+      --night-text: #f4f1ec;
+    }
 
-  body {
-    font-family: 'Manrope', sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: var(--day-bg);
-    color: var(--day-text);
-    transition: background-color 0.5s ease, color 0.5s ease;
-  }
+    body.day {
+      background-color: var(--day-bg);
+      color: var(--day-text);
+    }
 
-  .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    text-align: center;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    transition: background-image 0.5s ease, background-color 0.5s ease;
-    background-color: var(--day-bg);
-    padding: 1rem;
-  }
+    body.night {
+      background-color: var(--night-bg);
+      color: var(--night-text);
+    }
 
-<<<<<<< HEAD
-=======
-  .container.night {
-    background-color: var(--night-bg);
-  }
+    body {
+      font-family: 'Manrope', sans-serif;
+      margin: 0;
+      padding: 0;
+      transition: background-color 0.5s ease, color 0.5s ease;
+    }
 
-  .container.day {
-    background-color: var(--day-bg);
-  }
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      transition: background-image 0.5s ease, background-color 0.5s ease;
+      padding: 1rem;
+    }
 
->>>>>>> e023ab909cae4918d1c0f1c8788d44b5253703e6
-  .header {
-    position: absolute;
-    top: 40px;
-    left: 50%;
-    transform: translateX(-50%);
-    text-align: center;
-    font-size: 2.4rem;
-    font-weight: 700;
-    color: var(--day-text);
-    transition: color 0.5s ease;
-  }
-
-  .night .header {
-    color: var(--night-text);
-  }
-
-  .header span {
-    display: block;
-    font-size: 1.4rem;
-    font-weight: 400;
-    margin-top: 8px;
-    opacity: 0.8;
-  }
-
-<<<<<<< HEAD
-  .waitlist-button {
-    position: absolute;
-    top: 20px;
-    left: 30px;
-    background-color: var(--day-text);
-    color: var(--day-bg);
-    border: none;
-    padding: 8px 14px;
-    font-size: 0.95rem;
-    border-radius: 999px;
-    cursor: pointer;
-    text-decoration: none;
-    transition: background-color 0.5s ease, color 0.5s ease;
-  }
-
-  .night .waitlist-button {
-    background-color: var(--night-text);
-    color: var(--night-bg);
-  }
-
-=======
->>>>>>> e023ab909cae4918d1c0f1c8788d44b5253703e6
-  .toggle-container {
-    position: absolute;
-    top: 20px;
-    right: 30px;
-  }
-
-  .switch {
-    position: relative;
-    display: inline-block;
-    width: 60px;
-    height: 34px;
-  }
-
-  .switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-  }
-
-  .slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #ccc;
-    transition: .4s;
-    border-radius: 34px;
-  }
-
-  .slider:before {
-    position: absolute;
-    content: "☀️";
-    height: 26px;
-    width: 26px;
-    left: 4px;
-    bottom: 4px;
-    background-color: white;
-    transition: .4s;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 16px;
-  }
-
-  input:checked + .slider {
-    background-color: #666;
-  }
-
-  input:checked + .slider:before {
-    transform: translateX(26px);
-    content: "🌙";
-  }
-
-  .symbol {
-    font-size: 3rem;
-    margin-top: -150px;
-    transition: transform 0.5s;
-  }
-
-  .product-image {
-    width: 380px;
-    max-width: 90vw;
-    margin-top: 20px;
-    transition: opacity 0.5s ease;
-    border-radius: 8px;
-    box-shadow: none;
-  }
-
-  .night .product-image.day {
-    display: none;
-  }
-
-  .night .product-image.night {
-    display: inline-block;
-  }
-
-  .day .product-image.night {
-    display: none;
-  }
-
-  .social-links {
-    position: absolute;
-    bottom: 60px;
-    right: 30px;
-    display: flex;
-    gap: 16px;
-  }
-
-  .social-links a img {
-    width: 24px;
-    height: 24px;
-  }
-
-  .bottom-banner {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    background-color: var(--day-bg);
-    color: var(--day-text);
-    white-space: nowrap;
-    overflow: hidden;
-    font-size: 1.5rem;
-    padding: 6px 0;
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-  }
-
-  .bottom-banner .marquee {
-    display: block;
-    width: 100%;
-    overflow: hidden;
-    position: relative;
-  }
-
-  .bottom-banner .marquee span {
-    display: inline-block;
-    white-space: nowrap;
-    padding-left: 100%;
-    animation: scroll-banner 60s linear infinite;
-    will-change: transform;
-  }
-
-  @keyframes scroll-banner {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-100%); }
-  }
-
-  .night .bottom-banner {
-    background-color: var(--night-bg);
-    color: var(--night-text);
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-  }
-
-  @media (max-width: 768px) {
     .header {
-      font-size: 1.8rem;
-    }
-    .header span {
-      font-size: 1.1rem;
-    }
-    .symbol {
+      position: absolute;
+      top: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
       font-size: 2.4rem;
-      margin-top: -100px;
+      font-weight: 700;
+      transition: color 0.5s ease;
     }
-<<<<<<< HEAD
-    .waitlist-button {
-      font-size: 0.85rem;
-      padding: 6px 10px;
-    }
-  }
 
-  @media (max-width: 480px) {
-    .header {
-      font-size: 1.4rem;
+    .night .header {
+      color: var(--night-text);
     }
-    .header span {
-      font-size: 0.9rem;
-    }
-    .symbol {
-      font-size: 2rem;
-      margin-top: -80px;
-    }
-    .waitlist-button {
-      font-size: 0.75rem;
-      padding: 5px 8px;
-    }
-=======
-    .toggle-container {
-      top: 12px;
-      right: 16px;
-    }
-    .social-links {
-      bottom: 80px;
-      right: 20px;
-    }
-    .social-links a img {
-      width: 20px;
-      height: 20px;
-    }
-    .bottom-banner {
-      font-size: 1.1rem;
-    }
-  }
 
-  @media (max-width: 480px) {
-    .header {
-      font-size: 1.4rem;
-    }
     .header span {
-      font-size: 0.9rem;
+      display: block;
+      font-size: 1.4rem;
+      font-weight: 400;
+      margin-top: 8px;
+      opacity: 0.8;
     }
-    .symbol {
-      font-size: 2rem;
-      margin-top: -80px;
+
+    .waitlist-button {
+      position: absolute;
+      top: 20px;
+      left: 30px;
+      background-color: var(--day-text);
+      color: var(--day-bg);
+      border: none;
+      padding: 8px 14px;
+      font-size: 0.95rem;
+      border-radius: 999px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 0.5s ease, color 0.5s ease;
     }
+
+    body.night .waitlist-button {
+      background-color: var(--night-text);
+      color: var(--night-bg);
+    }
+
     .toggle-container {
-      top: 10px;
-      right: 10px;
+      position: absolute;
+      top: 20px;
+      right: 30px;
     }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 60px;
+      height: 34px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: .4s;
+      border-radius: 34px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "☀️";
+      height: 26px;
+      width: 26px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      transition: .4s;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+
+    input:checked + .slider {
+      background-color: #666;
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(26px);
+      content: "🌙";
+    }
+
+    .symbol {
+      font-size: 3rem;
+      margin-top: -150px;
+      transition: transform 0.5s;
+    }
+
+    .product-image {
+      width: 380px;
+      max-width: 90vw;
+      margin-top: 20px;
+      transition: opacity 0.5s ease;
+      border-radius: 8px;
+      box-shadow: none;
+    }
+
+    .night .product-image.day { display: none; }
+    .night .product-image.night { display: inline-block; }
+    .day .product-image.night { display: none; }
+
     .social-links {
-      bottom: 100px;
-      right: 10px;
-      gap: 12px;
+      position: absolute;
+      bottom: 60px;
+      right: 30px;
+      display: flex;
+      gap: 16px;
     }
+
     .social-links a img {
-      width: 18px;
-      height: 18px;
+      width: 24px;
+      height: 24px;
     }
+
     .bottom-banner {
-      font-size: 1rem;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background-color: var(--day-bg);
+      color: var(--day-text);
+      white-space: nowrap;
+      overflow: hidden;
+      font-size: 1.5rem;
+      padding: 6px 0;
+      border-top: 1px solid rgba(0, 0, 0, 0.1);
+      z-index: 1000;
     }
->>>>>>> e023ab909cae4918d1c0f1c8788d44b5253703e6
-  }
-</style>
+
+    .bottom-banner .marquee span {
+      display: inline-block;
+      white-space: nowrap;
+      padding-left: 100%;
+      animation: scroll-banner 60s linear infinite;
+      will-change: transform;
+    }
+
+    @keyframes scroll-banner {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-100%); }
+    }
+
+    .night .bottom-banner {
+      background-color: var(--night-bg);
+      color: var(--night-text);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    @media (max-width: 768px) {
+      .header { font-size: 1.8rem; }
+      .header span { font-size: 1.1rem; }
+      .symbol { font-size: 2.4rem; margin-top: -100px; }
+      .waitlist-button { font-size: 0.85rem; padding: 6px 10px; }
+    }
+
+    @media (max-width: 480px) {
+      .header { font-size: 1.4rem; }
+      .header span { font-size: 0.9rem; }
+      .symbol { font-size: 2rem; margin-top: -80px; }
+      .waitlist-button { font-size: 0.75rem; padding: 5px 8px; }
+    }
+  </style>
 </head>
 <body class="day">
-
-<<<<<<< HEAD
   <a href="waitlist.html" class="waitlist-button">Join the Waitlist</a>
-
-=======
->>>>>>> e023ab909cae4918d1c0f1c8788d44b5253703e6
   <div class="header">
     bare formulas
     <span>Clinical Skincare, Transparent by Design.</span>
@@ -335,16 +240,19 @@
     <img src="day products.png" alt="Day Products" class="product-image day" id="productImageDay">
     <img src="night products.png" alt="Night Products" class="product-image night" id="productImageNight" style="display:none">
   </div>
-
   <div class="social-links">
     <a href="https://www.facebook.com/profile.php?id=61575804246437"><img src="facebook-icon.png" alt="Facebook"></a>
     <a href="https://x.com/bareformulas"><img src="twitter-icon.png" alt="Twitter"></a>
     <a href="https://www.instagram.com/bareformulas/"><img src="instagram-icon.png" alt="Instagram"></a>
   </div>
-
+  <div class="bottom-banner">
+    <div class="marquee">
+      <span>
+        • coming soon • coming soon • coming soon • coming soon • coming soon • coming soon • coming soon • coming soon • coming soon • coming soon • coming soon • coming soon •
+      </span>
+    </div>
+  </div>
   <script>
-    let isDay = true;
-
     function toggleMode() {
       const body = document.body;
       const symbol = document.getElementById('symbol');
@@ -352,37 +260,21 @@
       const nightImg = document.getElementById('productImageNight');
       const container = document.getElementById('container');
 
-      if (isDay) {
-        body.classList.remove('day');
-        body.classList.add('night');
-        container.classList.remove('day');
-        container.classList.add('night');
+      body.classList.toggle('night');
+      body.classList.toggle('day');
+      container.classList.toggle('night');
+      container.classList.toggle('day');
+
+      if (body.classList.contains('night')) {
         symbol.textContent = '🌙';
         dayImg.style.display = 'none';
         nightImg.style.display = 'inline-block';
       } else {
-        body.classList.remove('night');
-        body.classList.add('day');
-        container.classList.remove('night');
-        container.classList.add('day');
         symbol.textContent = '☀️';
         nightImg.style.display = 'none';
         dayImg.style.display = 'inline-block';
       }
-
-      isDay = !isDay;
     }
-
-    const container = document.getElementById('container');
-    container.classList.add('day');
   </script>
-
-  <div class="bottom-banner">
-    <div class="marquee">
-      <span>
-        • coming soon • coming soon • coming soon • coming soon • coming soon • coming soon • coming soon • coming soon • coming soon • coming soon • coming soon • coming soon • coming soon • coming soon • coming soon • coming soon • coming soon • coming soon • coming soon • coming soon • coming soon • coming soon • coming soon • coming soon • coming soon • coming soon • coming soon • coming soon • coming soon • coming soon • coming soon • coming soon • coming soon • coming soon •
-      </span>
-    </div>
-  </div>
 </body>
 </html>

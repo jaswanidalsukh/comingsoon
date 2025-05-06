@@ -37,6 +37,17 @@
     padding: 1rem;
   }
 
+<<<<<<< HEAD
+=======
+  .container.night {
+    background-color: var(--night-bg);
+  }
+
+  .container.day {
+    background-color: var(--day-bg);
+  }
+
+>>>>>>> e023ab909cae4918d1c0f1c8788d44b5253703e6
   .header {
     position: absolute;
     top: 40px;
@@ -61,6 +72,7 @@
     opacity: 0.8;
   }
 
+<<<<<<< HEAD
   .waitlist-button {
     position: absolute;
     top: 20px;
@@ -81,6 +93,8 @@
     color: var(--night-bg);
   }
 
+=======
+>>>>>>> e023ab909cae4918d1c0f1c8788d44b5253703e6
   .toggle-container {
     position: absolute;
     top: 20px;
@@ -228,6 +242,7 @@
       font-size: 2.4rem;
       margin-top: -100px;
     }
+<<<<<<< HEAD
     .waitlist-button {
       font-size: 0.85rem;
       padding: 6px 10px;
@@ -249,13 +264,62 @@
       font-size: 0.75rem;
       padding: 5px 8px;
     }
+=======
+    .toggle-container {
+      top: 12px;
+      right: 16px;
+    }
+    .social-links {
+      bottom: 80px;
+      right: 20px;
+    }
+    .social-links a img {
+      width: 20px;
+      height: 20px;
+    }
+    .bottom-banner {
+      font-size: 1.1rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .header {
+      font-size: 1.4rem;
+    }
+    .header span {
+      font-size: 0.9rem;
+    }
+    .symbol {
+      font-size: 2rem;
+      margin-top: -80px;
+    }
+    .toggle-container {
+      top: 10px;
+      right: 10px;
+    }
+    .social-links {
+      bottom: 100px;
+      right: 10px;
+      gap: 12px;
+    }
+    .social-links a img {
+      width: 18px;
+      height: 18px;
+    }
+    .bottom-banner {
+      font-size: 1rem;
+    }
+>>>>>>> e023ab909cae4918d1c0f1c8788d44b5253703e6
   }
 </style>
 </head>
 <body class="day">
 
+<<<<<<< HEAD
   <a href="waitlist.html" class="waitlist-button">Join the Waitlist</a>
 
+=======
+>>>>>>> e023ab909cae4918d1c0f1c8788d44b5253703e6
   <div class="header">
     bare formulas
     <span>Clinical Skincare, Transparent by Design.</span>
@@ -266,7 +330,7 @@
       <span class="slider"></span>
     </label>
   </div>
-  <div class="container" id="container">
+  <div class="container day" id="container">
     <div class="symbol" id="symbol">☀️</div>
     <img src="day products.png" alt="Day Products" class="product-image day" id="productImageDay">
     <img src="night products.png" alt="Night Products" class="product-image night" id="productImageNight" style="display:none">
@@ -291,27 +355,26 @@
       if (isDay) {
         body.classList.remove('day');
         body.classList.add('night');
+        container.classList.remove('day');
+        container.classList.add('night');
         symbol.textContent = '🌙';
         dayImg.style.display = 'none';
         nightImg.style.display = 'inline-block';
-        container.style.backgroundImage = "url('night-products.jpg')";
-        container.style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--night-bg');
       } else {
         body.classList.remove('night');
         body.classList.add('day');
+        container.classList.remove('night');
+        container.classList.add('day');
         symbol.textContent = '☀️';
         nightImg.style.display = 'none';
         dayImg.style.display = 'inline-block';
-        container.style.backgroundImage = "url('day-products.jpg')";
-        container.style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--day-bg');
       }
 
       isDay = !isDay;
     }
 
     const container = document.getElementById('container');
-    container.style.backgroundImage = "url('day-products.jpg')";
-    container.style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--day-bg');
+    container.classList.add('day');
   </script>
 
   <div class="bottom-banner">

@@ -79,34 +79,61 @@
   </div>
 
   <script>
-    // Auto-fill 'referredBy' from URL param if available
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbws9l8jX9DIuv6EF64sywTn8NlgeQQA2_15IdEMCN_4rg4dILsOxCdW13p3Ctd9Qwf0wg/exec';
+
+    // Autofill referredBy if URL has ?ref=
     const urlParams = new URLSearchParams(window.location.search);
     const refParam = urlParams.get('ref');
     if (refParam) {
       document.getElementById('referredBy').value = refParam;
     }
-  
+
+    async function generateUniqueReferralCode() {
+      for (let i = 0; i < 5; i++) {
+        const code = 'bf-' + Math.floor(100000 + Math.random() * 900000);
+        try {
+          const res = await fetch(scriptURL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ checkOnly: true, referralCode: code })
+          });
+
+          const result = await res.json();
+          if (result.result === 'ok') return code;
+        } catch (err) {
+          return code; // fallback on error
+        }
+      }
+      return null;
+    }
+
     document.getElementById('waitlistForm').addEventListener('submit', async function(e) {
       e.preventDefault();
-  
-      // Generate a referral code
-      const referralCode = 'bf-' + Math.floor(100000 + Math.random() * 900000);
+
+      const referralCode = await generateUniqueReferralCode();
+      if (!referralCode) {
+        alert("Failed to generate referral code. Please try again.");
+        return;
+      }
+
       document.getElementById('referralCode').value = referralCode;
-  
+
       const formData = new FormData(this);
-  
+      const data = {};
+      formData.forEach((value, key) => data[key] = value);
+
       try {
-        await fetch('https://script.google.com/macros/s/AKfycbzmzKjNmXgwtfDj3GFfDlFUYKGvEYW9gUuSeMxjF38NaDwAsInCE_SPAk1ndq5W8LAq/exec', {
+        await fetch(scriptURL, {
           method: 'POST',
-          body: formData // ← FORM not JSON
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
         });
-  
+
         window.location.href = `thank-you.html?ref=${referralCode}`;
       } catch (error) {
         alert('There was an issue submitting your form. Please try again.');
       }
     });
   </script>
-  
 </body>
 </html>

@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Join the Waitlist – Bare Formulas</title>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600&display=swap" rel="stylesheet">
   <style>
@@ -67,55 +67,27 @@
 <body>
   <div class="form-container">
     <h1>Join the Waitlist</h1>
-    <form id="waitlistForm" method="POST">
+    <form id="waitlistForm">
       <input type="text" name="name" placeholder="Your Name" required>
-      <input type="email" name="email" id="email" placeholder="Your Email" required>
+      <input type="email" name="email" placeholder="Your Email" required>
       <input type="text" name="referredBy" id="referredBy" placeholder="Referral Code (optional)">
       <input type="hidden" name="referralCode" id="referralCode">
       <textarea name="message" rows="4" placeholder="Anything you'd like to tell us?"></textarea>
       <button type="submit">Submit</button>
     </form>
-    <div id="confirmation" style="margin-top: 1rem; display: none;"></div>
   </div>
 
   <script>
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbws9l8jX9DIuv6EF64sywTn8NlgeQQA2_15IdEMCN_4rg4dILsOxCdW13p3Ctd9Qwf0wg/exec';
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbzmzKjNmXgwtfDj3GFfDlFUYKGvEYW9gUuSeMxjF38NaDwAsInCE_SPAk1ndq5W8LAq/exec';
 
-    // Autofill referredBy if URL has ?ref=
-    const urlParams = new URLSearchParams(window.location.search);
-    const refParam = urlParams.get('ref');
+    const refParam = new URLSearchParams(window.location.search).get('ref');
     if (refParam) {
       document.getElementById('referredBy').value = refParam;
     }
 
-    async function generateUniqueReferralCode() {
-      for (let i = 0; i < 5; i++) {
-        const code = 'bf-' + Math.floor(100000 + Math.random() * 900000);
-        try {
-          const res = await fetch(scriptURL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ checkOnly: true, referralCode: code })
-          });
-
-          const result = await res.json();
-          if (result.result === 'ok') return code;
-        } catch (err) {
-          return code; // fallback on error
-        }
-      }
-      return null;
-    }
-
     document.getElementById('waitlistForm').addEventListener('submit', async function(e) {
       e.preventDefault();
-
-      const referralCode = await generateUniqueReferralCode();
-      if (!referralCode) {
-        alert("Failed to generate referral code. Please try again.");
-        return;
-      }
-
+      const referralCode = 'bf-' + Math.floor(100000 + Math.random() * 900000);
       document.getElementById('referralCode').value = referralCode;
 
       const formData = new FormData(this);
@@ -130,8 +102,9 @@
         });
 
         window.location.href = `thank-you.html?ref=${referralCode}`;
-      } catch (error) {
+      } catch (err) {
         alert('There was an issue submitting your form. Please try again.');
+        console.error(err);
       }
     });
   </script>

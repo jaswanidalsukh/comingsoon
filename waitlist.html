@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Join the Waitlist – Bare Formulas</title>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600&display=swap" rel="stylesheet" />
   <style>
     body {
       margin: 0;
@@ -15,7 +15,6 @@
       align-items: center;
       justify-content: center;
     }
-
     .form-container {
       background-color: rgba(255, 255, 255, 0.95);
       padding: 2rem;
@@ -25,12 +24,7 @@
       width: 100%;
       text-align: center;
     }
-
-    h1 {
-      margin-bottom: 1rem;
-      font-size: 1.8rem;
-    }
-
+    h1 { margin-bottom: 1rem; font-size: 1.8rem; }
     form input, form textarea {
       width: 100%;
       padding: 10px;
@@ -39,7 +33,6 @@
       border-radius: 6px;
       font-size: 1rem;
     }
-
     button {
       margin-top: 1rem;
       padding: 10px 20px;
@@ -51,16 +44,9 @@
       cursor: pointer;
       transition: background-color 0.3s ease;
     }
-
-    button:hover {
-      background-color: #333;
-    }
-
+    button:hover { background-color: #333; }
     @media (max-width: 480px) {
-      .form-container {
-        margin: 0 1rem;
-        padding: 1.5rem;
-      }
+      .form-container { margin: 0 1rem; padding: 1.5rem; }
     }
   </style>
 </head>
@@ -68,10 +54,10 @@
   <div class="form-container">
     <h1>Join the Waitlist</h1>
     <form id="waitlistForm">
-      <input type="text" name="name" placeholder="Your Name" required>
-      <input type="email" name="email" placeholder="Your Email" required>
-      <input type="text" name="referredBy" id="referredBy" placeholder="Referral Code (optional)">
-      <input type="hidden" name="referralCode" id="referralCode">
+      <input type="text" name="name" placeholder="Your Name" required />
+      <input type="email" name="email" id="email" placeholder="Your Email" required />
+      <input type="text" name="referredBy" id="referredBy" placeholder="Referral Code (optional)" />
+      <input type="hidden" name="referralCode" id="referralCode" />
       <textarea name="message" rows="4" placeholder="Anything you'd like to tell us?"></textarea>
       <button type="submit">Submit</button>
     </form>
@@ -80,21 +66,35 @@
   <script>
     const scriptURL = 'https://script.google.com/macros/s/AKfycbws9l8jX9DIuv6EF64sywTn8NlgeQQA2_15IdEMCN_4rg4dILsOxCdW13p3Ctd9Qwf0wg/exec';
 
-    const refParam = new URLSearchParams(window.location.search).get('ref');
-    if (refParam) {
-      document.getElementById('referredBy').value = refParam;
+    const urlParams = new URLSearchParams(window.location.search);
+    const refParam = urlParams.get('ref');
+    if (refParam) document.getElementById('referredBy').value = refParam;
+
+    async function generateReferralCode() {
+      for (let i = 0; i < 5; i++) {
+        const code = 'bf-' + Math.floor(100000 + Math.random() * 900000);
+        const res = await fetch(scriptURL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ checkOnly: true, referralCode: code })
+        });
+        const result = await res.json();
+        if (result.result === 'ok') return code;
+      }
+      throw new Error("Couldn't generate unique code.");
     }
 
     document.getElementById('waitlistForm').addEventListener('submit', async function(e) {
       e.preventDefault();
-      const referralCode = 'bf-' + Math.floor(100000 + Math.random() * 900000);
-      document.getElementById('referralCode').value = referralCode;
-
-      const formData = new FormData(this);
-      const data = {};
-      formData.forEach((value, key) => data[key] = value);
 
       try {
+        const referralCode = await generateReferralCode();
+        document.getElementById('referralCode').value = referralCode;
+
+        const formData = new FormData(this);
+        const data = {};
+        formData.forEach((value, key) => data[key] = value);
+
         await fetch(scriptURL, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -104,7 +104,6 @@
         window.location.href = `thank-you.html?ref=${referralCode}`;
       } catch (err) {
         alert('There was an issue submitting your form. Please try again.');
-        console.error(err);
       }
     });
   </script>

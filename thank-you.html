@@ -49,6 +49,16 @@
       text-transform: lowercase;
     }
 
+    .referral-code {
+      background-color: rgba(255, 255, 255, 0.1);
+      padding: 1rem;
+      margin-top: 2rem;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 600;
+      border: 1px dashed #fff;
+    }
+
     .home-button {
       display: inline-block;
       margin-top: 2rem;
@@ -84,7 +94,15 @@
     <div class="logo">bf</div>
     <h1>Thank You for Joining!</h1>
     <p>You’re officially on the waitlist. We’ll be in touch when <strong>bare formulas</strong> is ready to launch.</p>
+    <div class="referral-code" id="referralBlock">
+      Your Referral Code: <span id="referralCode">loading...</span>
+    </div>
     <a href="index.html" class="home-button">Back to Home</a>
   </div>
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const referral = urlParams.get('ref');
+    document.getElementById('referralCode').textContent = referral || 'N/A';
+  </script>
 </body>
 </html>

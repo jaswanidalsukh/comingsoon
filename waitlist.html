@@ -17,7 +17,7 @@
     }
 
     .form-container {
-      background-color: rgba(255, 255, 255, 0.9);
+      background-color: rgba(255, 255, 255, 0.95);
       padding: 2rem;
       border-radius: 16px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.1);
@@ -56,49 +56,6 @@
       background-color: #333;
     }
 
-    .success-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(31, 27, 36, 0.9);
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.5s ease;
-    }
-
-    .success-overlay.show {
-      opacity: 1;
-      pointer-events: all;
-    }
-
-    .success-message {
-      text-align: center;
-      animation: scaleFadeIn 0.6s ease forwards;
-    }
-
-    .success-message h2 {
-      font-size: 2rem;
-      margin-bottom: 1rem;
-    }
-
-    @keyframes scaleFadeIn {
-      0% {
-        transform: scale(0.8);
-        opacity: 0;
-      }
-      100% {
-        transform: scale(1);
-        opacity: 1;
-      }
-    }
-
     @media (max-width: 480px) {
       .form-container {
         margin: 0 1rem;
@@ -110,59 +67,46 @@
 <body>
   <div class="form-container">
     <h1>Join the Waitlist</h1>
-    <form id="waitlistForm">
-        <input type="text" name="name" placeholder="Your Name" required>
-        <input type="email" name="email" placeholder="Your Email" required>
-        <textarea name="message" rows="4" placeholder="Anything you'd like to tell us?"></textarea>
-        <button type="submit">Submit</button>
-      </form>
-      
-      <script>
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbzGTjtYWX5vTlNvOxjDKcULZDx0YMQhcEc_Cb98a0039mtDnG0QcFiih4WHf1BB6-jbCg/exec'; // ← Replace this
-      
-        document.getElementById('waitlistForm').addEventListener('submit', function(e) {
-          e.preventDefault();
-          const form = e.target;
-          const data = {
-            name: form.name.value,
-            email: form.email.value,
-            message: form.message.value
-          };
-      
-          fetch(scriptURL, {
-            method: 'POST',
-            body: JSON.stringify(data)
-          })
-          .then(response => {
-            if (response.ok) {
-              window.location.href = 'thank-you.html'; // redirect
-            } else {
-              alert('Something went wrong. Try again.');
-            }
-          })
-          .catch(error => alert('Error: ' + error.message));
-        });
-      </script>
-      
-  </div>
-
-  <div class="success-overlay" id="successOverlay">
-    <div class="success-message">
-      <h2>You're on the list! ✅</h2>
-      <p>We'll let you know when we launch.</p>
-    </div>
+    <form id="waitlistForm" method="POST">
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="email" name="email" id="email" placeholder="Your Email" required>
+      <input type="text" name="referredBy" id="referredBy" placeholder="Referral Code (optional)">
+      <input type="hidden" name="referralCode" id="referralCode">
+      <textarea name="message" rows="4" placeholder="Anything you'd like to tell us?"></textarea>
+      <button type="submit">Submit</button>
+    </form>
+    <div id="confirmation" style="margin-top: 1rem; display: none;"></div>
   </div>
 
   <script>
-    function showSuccess(event) {
-      event.preventDefault();
-      document.getElementById('successOverlay').classList.add('show');
-      setTimeout(() => {
-        document.getElementById('successOverlay').classList.remove('show');
-        document.getElementById('waitlistForm').reset();
-        window.location.href = 'thank-you.html'; // ✅ this is what connects to the thank-you page
-      }, 5000); // 5 seconds delay before redirecting
+    // Auto-fill 'referredBy' from URL param if available
+    const urlParams = new URLSearchParams(window.location.search);
+    const refParam = urlParams.get('ref');
+    if (refParam) {
+      document.getElementById('referredBy').value = refParam;
     }
-  </script>  
+  
+    document.getElementById('waitlistForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+  
+      // Generate a referral code
+      const referralCode = 'bf-' + Math.floor(100000 + Math.random() * 900000);
+      document.getElementById('referralCode').value = referralCode;
+  
+      const formData = new FormData(this);
+  
+      try {
+        await fetch('https://script.google.com/macros/s/AKfycbzmzKjNmXgwtfDj3GFfDlFUYKGvEYW9gUuSeMxjF38NaDwAsInCE_SPAk1ndq5W8LAq/exec', {
+          method: 'POST',
+          body: formData // ← FORM not JSON
+        });
+  
+        window.location.href = `thank-you.html?ref=${referralCode}`;
+      } catch (error) {
+        alert('There was an issue submitting your form. Please try again.');
+      }
+    });
+  </script>
+  
 </body>
 </html>

@@ -24,7 +24,10 @@
       width: 100%;
       text-align: center;
     }
-    h1 { margin-bottom: 1rem; font-size: 1.8rem; }
+    h1 {
+      margin-bottom: 1rem;
+      font-size: 1.8rem;
+    }
     form input, form textarea {
       width: 100%;
       padding: 10px;
@@ -44,9 +47,14 @@
       cursor: pointer;
       transition: background-color 0.3s ease;
     }
-    button:hover { background-color: #333; }
+    button:hover {
+      background-color: #333;
+    }
     @media (max-width: 480px) {
-      .form-container { margin: 0 1rem; padding: 1.5rem; }
+      .form-container {
+        margin: 0 1rem;
+        padding: 1.5rem;
+      }
     }
   </style>
 </head>
@@ -54,7 +62,8 @@
   <div class="form-container">
     <h1>Join the Waitlist</h1>
     <form id="waitlistForm">
-      <input type="text" name="name" placeholder="Your Name" required />
+      <input type="text" name="firstName" id="firstName" placeholder="First Name" required />
+      <input type="text" name="lastName" id="lastName" placeholder="Last Name" required />
       <input type="email" name="email" id="email" placeholder="Your Email" required />
       <input type="text" name="referredBy" id="referredBy" placeholder="Referral Code (optional)" />
       <input type="hidden" name="referralCode" id="referralCode" />
@@ -65,32 +74,40 @@
 
   <script>
     const scriptURL = 'https://script.google.com/macros/s/AKfycbwaYyox1-fl7qOV4HdX8ErokHENHpbswpxEu_rur5lxFTV5Akkcsy_PWbIelRnQLdh9hw/exec';
-  
+
     const urlParams = new URLSearchParams(window.location.search);
     const refParam = urlParams.get('ref');
     if (refParam) {
       document.getElementById('referredBy').value = refParam;
     }
-  
+
+    function generateReferralCode(first, last) {
+      const namePart = `${first}-${last}`.toLowerCase().replace(/\s+/g, '');
+      const num = Math.floor(10 + Math.random() * 99990);
+      return `${namePart}-${num}`;
+    }
+
     document.getElementById('waitlistForm').addEventListener('submit', async function(e) {
       e.preventDefault();
-  
-      const referralCode = 'bf-' + Math.floor(100000 + Math.random() * 900000);
+
+      const first = document.getElementById('firstName').value.trim();
+      const last = document.getElementById('lastName').value.trim();
+      const referralCode = generateReferralCode(first, last);
       document.getElementById('referralCode').value = referralCode;
-  
+
       const formData = new FormData(this);
-  
+
       try {
         await fetch(scriptURL, {
           method: 'POST',
           body: formData
         });
-  
+
         window.location.href = `thank-you.html?ref=${referralCode}`;
       } catch (error) {
         alert('There was an issue submitting your form. Please try again.');
       }
     });
-  </script>  
+  </script>
 </body>
 </html>

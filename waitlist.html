@@ -64,48 +64,33 @@
   </div>
 
   <script>
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbws9l8jX9DIuv6EF64sywTn8NlgeQQA2_15IdEMCN_4rg4dILsOxCdW13p3Ctd9Qwf0wg/exec';
-
+    const scriptURL = 'https://script.google.com/a/macros/bareformulas.com/s/AKfycbws9l8jX9DIuv6EF64sywTn8NlgeQQA2_15IdEMCN_4rg4dILsOxCdW13p3Ctd9Qwf0wg/exec';
+  
     const urlParams = new URLSearchParams(window.location.search);
     const refParam = urlParams.get('ref');
-    if (refParam) document.getElementById('referredBy').value = refParam;
-
-    async function generateReferralCode() {
-      for (let i = 0; i < 5; i++) {
-        const code = 'bf-' + Math.floor(100000 + Math.random() * 900000);
-        const res = await fetch(scriptURL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ checkOnly: true, referralCode: code })
-        });
-        const result = await res.json();
-        if (result.result === 'ok') return code;
-      }
-      throw new Error("Couldn't generate unique code.");
+    if (refParam) {
+      document.getElementById('referredBy').value = refParam;
     }
-
+  
     document.getElementById('waitlistForm').addEventListener('submit', async function(e) {
       e.preventDefault();
-
+  
+      const referralCode = 'bf-' + Math.floor(100000 + Math.random() * 900000);
+      document.getElementById('referralCode').value = referralCode;
+  
+      const formData = new FormData(this);
+  
       try {
-        const referralCode = await generateReferralCode();
-        document.getElementById('referralCode').value = referralCode;
-
-        const formData = new FormData(this);
-        const data = {};
-        formData.forEach((value, key) => data[key] = value);
-
         await fetch(scriptURL, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data)
+          body: formData
         });
-
+  
         window.location.href = `thank-you.html?ref=${referralCode}`;
-      } catch (err) {
+      } catch (error) {
         alert('There was an issue submitting your form. Please try again.');
       }
     });
-  </script>
+  </script>  
 </body>
 </html>

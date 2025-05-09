@@ -10,11 +10,14 @@
       margin: 0;
       font-family: 'Manrope', sans-serif;
       background: url('waitlist-bg.png') no-repeat center center/cover;
-      height: 100vh;
+      min-height: 100vh;
       display: flex;
+      flex-direction: column;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-start;
+      padding-top: 60px;
     }
+
     .form-container {
       background-color: rgba(255, 255, 255, 0.95);
       padding: 2rem;
@@ -23,11 +26,10 @@
       max-width: 400px;
       width: 100%;
       text-align: center;
+      margin-bottom: 3rem;
     }
-    h1 {
-      margin-bottom: 1rem;
-      font-size: 1.8rem;
-    }
+
+    h1 { margin-bottom: 1rem; font-size: 1.8rem; }
     form input, form textarea {
       width: 100%;
       padding: 10px;
@@ -36,6 +38,7 @@
       border-radius: 6px;
       font-size: 1rem;
     }
+
     button {
       margin-top: 1rem;
       padding: 10px 20px;
@@ -47,9 +50,57 @@
       cursor: pointer;
       transition: background-color 0.3s ease;
     }
-    button:hover {
-      background-color: #333;
+
+    button:hover { background-color: #333; }
+
+    .referral-section {
+      background-color: #fff;
+      max-width: 900px;
+      padding: 2rem 1rem;
+      border-radius: 12px;
+      box-shadow: 0 0 12px rgba(0,0,0,0.05);
+      text-align: center;
     }
+
+    .referral-section h2 {
+      font-size: 1.6rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .referral-steps {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 40px;
+    }
+
+    .step {
+      flex: 1 1 240px;
+      max-width: 260px;
+    }
+
+    .step-icon {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .step-title {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .step-description {
+      font-size: 0.95rem;
+      opacity: 0.8;
+    }
+
+    @media (max-width: 768px) {
+      .referral-steps {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+
     @media (max-width: 480px) {
       .form-container {
         margin: 0 1rem;
@@ -72,6 +123,27 @@
     </form>
   </div>
 
+  <div class="referral-section">
+    <h2>Refer your friends today</h2>
+    <div class="referral-steps">
+      <div class="step">
+        <div class="step-icon">📨</div>
+        <div class="step-title">1. Share your code</div>
+        <div class="step-description">Send your referral code to friends. You’ll get it after joining the waitlist.</div>
+      </div>
+      <div class="step">
+        <div class="step-icon">🎁</div>
+        <div class="step-title">2. They sign up</div>
+        <div class="step-description">When they use your code and sign up, they’ll get exclusive early access perks.</div>
+      </div>
+      <div class="step">
+        <div class="step-icon">🏆</div>
+        <div class="step-title">3. You get rewarded</div>
+        <div class="step-description">You’ll be eligible for exclusive gifts, discounts, and top referrer prizes.</div>
+      </div>
+    </div>
+  </div>
+
   <script>
     const scriptURL = 'https://script.google.com/macros/s/AKfycbwaYyox1-fl7qOV4HdX8ErokHENHpbswpxEu_rur5lxFTV5Akkcsy_PWbIelRnQLdh9hw/exec';
 
@@ -81,19 +153,13 @@
       document.getElementById('referredBy').value = refParam;
     }
 
-    function generateReferralCode(first, last) {
-      const namePart = `${first}-${last}`.toLowerCase().replace(/\s+/g, '');
-      const num = Math.floor(10 + Math.random() * 99990);
-      return `${namePart}-${num}`;
-    }
-
     document.getElementById('waitlistForm').addEventListener('submit', async function(e) {
       e.preventDefault();
 
-      const first = document.getElementById('firstName').value.trim();
-      const last = document.getElementById('lastName').value.trim();
-      const referralCode = generateReferralCode(first, last);
-      document.getElementById('referralCode').value = referralCode;
+      const firstName = document.getElementById('firstName').value.trim().toLowerCase();
+      const lastName = document.getElementById('lastName').value.trim().toLowerCase();
+      const uniqueCode = firstName + lastName + '-' + Math.floor(Math.random() * (99999 - 10) + 10);
+      document.getElementById('referralCode').value = uniqueCode;
 
       const formData = new FormData(this);
 
@@ -102,8 +168,7 @@
           method: 'POST',
           body: formData
         });
-
-        window.location.href = `thank-you.html?ref=${referralCode}`;
+        window.location.href = `thank-you.html?ref=${uniqueCode}`;
       } catch (error) {
         alert('There was an issue submitting your form. Please try again.');
       }

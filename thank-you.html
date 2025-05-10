@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Thank You – bare formulas</title>
+  <title>Thank You – Bare Formulas</title>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600&display=swap" rel="stylesheet">
   <style>
     body {
@@ -18,6 +18,7 @@
       justify-content: center;
       color: #fff;
       text-align: center;
+      padding: 1rem;
     }
 
     @keyframes fadeLoop {
@@ -49,14 +50,41 @@
       text-transform: lowercase;
     }
 
-    .referral-code {
+    .referral-label {
+      margin-top: 2rem;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: #ffffffcc;
+    }
+
+    .referral-code-box {
       background-color: rgba(255, 255, 255, 0.1);
       padding: 1rem;
-      margin-top: 2rem;
       border-radius: 10px;
-      font-size: 1rem;
+      font-size: 1.1rem;
       font-weight: 600;
       border: 1px dashed #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .referral-code-box code {
+      word-break: break-word;
+    }
+
+    .copy-btn {
+      background: none;
+      border: none;
+      color: #fff;
+      cursor: pointer;
+      font-size: 1.1rem;
+      margin-left: 1rem;
+    }
+
+    .copy-btn:hover {
+      opacity: 0.8;
     }
 
     .home-button {
@@ -86,6 +114,15 @@
       .logo {
         font-size: 1.6rem;
       }
+      .referral-code-box {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+      }
+      .copy-btn {
+        align-self: flex-end;
+        margin-left: 0;
+      }
     }
   </style>
 </head>
@@ -94,15 +131,34 @@
     <div class="logo">bf</div>
     <h1>Thank You for Joining!</h1>
     <p>You’re officially on the waitlist. We’ll be in touch when <strong>bare formulas</strong> is ready to launch.</p>
-    <div class="referral-code" id="referralBlock">
-      Your Referral Code: <span id="referralCode">loading...</span>
+
+    <div class="referral-label">Your referral code is:</div>
+    <div class="referral-code-box">
+      <code id="referralCode">loading...</code>
+      <button class="copy-btn" onclick="copyReferral()">📋</button>
     </div>
+
     <a href="index.html" class="home-button">Back to Home</a>
   </div>
+
   <script>
     const urlParams = new URLSearchParams(window.location.search);
     const referral = urlParams.get('ref');
-    document.getElementById('referralCode').textContent = referral || 'N/A';
+    const referralDisplay = document.getElementById('referralCode');
+
+    referralDisplay.textContent = referral || 'N/A';
+
+    function copyReferral() {
+      if (referral) {
+        navigator.clipboard.writeText(referral)
+          .then(() => {
+            const btn = document.querySelector('.copy-btn');
+            btn.textContent = '✅ Copied';
+            setTimeout(() => { btn.textContent = '📋'; }, 2000);
+          })
+          .catch(() => alert('Copy failed. Please try manually.'));
+      }
+    }
   </script>
 </body>
 </html>

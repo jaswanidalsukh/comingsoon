@@ -37,10 +37,6 @@
       justify-content: center;
       height: 100vh;
       text-align: center;
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      transition: background-image 0.5s ease, background-color 0.5s ease;
       padding: 1rem;
     }
 
@@ -52,11 +48,6 @@
       text-align: center;
       font-size: 2.4rem;
       font-weight: 700;
-      transition: color 0.5s ease;
-    }
-
-    .night .header {
-      color: var(--night-text);
     }
 
     .header span {
@@ -79,7 +70,6 @@
       border-radius: 999px;
       cursor: pointer;
       text-decoration: none;
-      transition: background-color 0.5s ease, color 0.5s ease;
     }
 
     body.night .waitlist-button {
@@ -146,28 +136,60 @@
     .symbol {
       font-size: 3rem;
       margin-top: -150px;
-      transition: transform 0.5s;
     }
 
     .product-image {
       width: 380px;
       max-width: 90vw;
       margin-top: 20px;
-      transition: opacity 0.5s ease;
       border-radius: 8px;
-      box-shadow: none;
     }
 
     .night .product-image.day { display: none; }
     .night .product-image.night { display: inline-block; }
     .day .product-image.night { display: none; }
 
+    .crafted-line {
+      position: fixed;
+      bottom: 48px;
+      width: 100%;
+      text-align: center;
+      font-weight: 600;
+      font-size: 1rem;
+      z-index: 998;
+      color: var(--day-text);
+    }
+
+    .night .crafted-line {
+      color: var(--night-text);
+    }
+
+    .about-link {
+      position: fixed;
+      bottom: 14px;
+      left: 20px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--day-text);
+      text-decoration: none;
+      z-index: 1002;
+      background: var(--day-bg);
+      padding: 4px 8px;
+      border-radius: 4px;
+    }
+
+    .night .about-link {
+      color: var(--night-text);
+      background: var(--night-bg);
+    }
+
     .social-links {
-      position: absolute;
+      position: fixed;
       bottom: 60px;
       right: 30px;
       display: flex;
       gap: 16px;
+      z-index: 1000;
     }
 
     .social-links a img {
@@ -186,7 +208,13 @@
       font-size: 1.5rem;
       padding: 6px 0;
       border-top: 1px solid rgba(0, 0, 0, 0.1);
-      z-index: 1000;
+      z-index: 999;
+    }
+
+    .night .bottom-banner {
+      background-color: var(--night-bg);
+      color: var(--night-text);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     .bottom-banner .marquee span {
@@ -194,18 +222,11 @@
       white-space: nowrap;
       padding-left: 100%;
       animation: scroll-banner 60s linear infinite;
-      will-change: transform;
     }
 
     @keyframes scroll-banner {
       0% { transform: translateX(0); }
       100% { transform: translateX(-100%); }
-    }
-
-    .night .bottom-banner {
-      background-color: var(--night-bg);
-      color: var(--night-text);
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     @media (max-width: 768px) {
@@ -225,33 +246,43 @@
 </head>
 <body class="day">
   <a href="waitlist.html" class="waitlist-button">Join the Waitlist</a>
+
   <div class="header">
     bare formulas
     <span>Clinical Skincare, Transparent by Design.</span>
   </div>
+
   <div class="toggle-container">
     <label class="switch">
       <input type="checkbox" id="modeToggle" onclick="toggleMode()">
       <span class="slider"></span>
     </label>
   </div>
+
   <div class="container day" id="container">
     <div class="symbol" id="symbol">☀️</div>
     <img src="day products.png" alt="Day Products" class="product-image day" id="productImageDay">
     <img src="night products.png" alt="Night Products" class="product-image night" id="productImageNight" style="display:none">
   </div>
+
+  <div class="crafted-line"><strong>Crafted beneath Canadian Skies</strong></div>
+
+  <a class="about-link" href="about.html">About us</a>
+
   <div class="social-links">
-    <a href="https://www.facebook.com/profile.php?id=61575804246437"><img src="facebook-icon.png" alt="Facebook"></a>
-    <a href="https://x.com/bareformulas"><img src="twitter-icon.png" alt="Twitter"></a>
-    <a href="https://www.instagram.com/bareformulas/"><img src="instagram-icon.png" alt="Instagram"></a>
+    <a href="https://www.facebook.com/profile.php?id=61575804246437" target="_blank"><img src="facebook-icon.png" alt="Facebook"></a>
+    <a href="https://x.com/bareformulas" target="_blank"><img src="twitter-icon.png" alt="Twitter"></a>
+    <a href="https://www.instagram.com/bareformulas/" target="_blank"><img src="instagram-icon.png" alt="Instagram"></a>
   </div>
+
   <div class="bottom-banner">
     <div class="marquee">
       <span>
-        • coming soon • coming soon • coming soon • coming soon • coming soon • coming soon • coming soon • coming soon • coming soon • coming soon • coming soon • coming soon •
+        • coming soon • coming soon • coming soon • coming soon • coming soon • coming soon • coming soon • coming soon • coming soon • coming soon •
       </span>
     </div>
   </div>
+
   <script>
     function toggleMode() {
       const body = document.body;

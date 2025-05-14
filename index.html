@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Bare Formulas – Coming Soon</title>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600&display=swap" rel="stylesheet">
   <style>
@@ -14,12 +14,12 @@
     }
 
     body {
+      font-family: 'Manrope', sans-serif;
       margin: 0;
       padding: 0;
-      font-family: 'Manrope', sans-serif;
       background-color: var(--day-bg);
       color: var(--day-text);
-      transition: background-color 0.4s ease, color 0.4s ease;
+      transition: background-color 0.5s ease, color 0.5s ease;
     }
 
     body.night {
@@ -68,7 +68,6 @@
       font-size: 0.95rem;
       cursor: pointer;
       text-decoration: none;
-      transition: background-color 0.5s ease, color 0.5s ease;
       z-index: 1001;
     }
 
@@ -269,10 +268,10 @@
     </label>
   </div>
 
-  <div class="container day" id="container">
+  <div class="container" id="container">
     <div class="symbol" id="symbol">☀️</div>
-    <img src="day products.png" alt="Day Products" class="product-image day" id="productImageDay">
-    <img src="night products.png" alt="Night Products" class="product-image night" id="productImageNight" style="display:none">
+    <img src="day products.png" alt="Day Products" class="product-image" id="productImageDay">
+    <img src="night products.png" alt="Night Products" class="product-image" id="productImageNight" style="display:none">
 
     <!-- Counter Section -->
     <div class="counter-wrapper">
@@ -310,12 +309,9 @@
       const symbol = document.getElementById('symbol');
       const dayImg = document.getElementById('productImageDay');
       const nightImg = document.getElementById('productImageNight');
-      const container = document.getElementById('container');
 
       body.classList.toggle('night');
       body.classList.toggle('day');
-      container.classList.toggle('night');
-      container.classList.toggle('day');
 
       if (body.classList.contains('night')) {
         symbol.textContent = '🌙';
@@ -341,7 +337,7 @@
         label.style.left = `${percent}%`;
       })
       .catch(() => {
-        document.getElementById('countLabel').textContent = "500+ Joined";
+        document.getElementById('countLabel').textContent = "Error loading count";
       });
   </script>
 </body>

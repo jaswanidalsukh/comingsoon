@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Bare Formulas – Coming Soon</title>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600&display=swap" rel="stylesheet">
   <style>
@@ -35,7 +35,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      height: 100vh;
+      min-height: 100vh;
       text-align: center;
       padding: 1rem;
     }
@@ -45,9 +45,9 @@
       top: 40px;
       left: 50%;
       transform: translateX(-50%);
-      text-align: center;
       font-size: 2.4rem;
       font-weight: 700;
+      text-align: center;
     }
 
     .header span {
@@ -64,12 +64,13 @@
       left: 30px;
       background-color: var(--day-text);
       color: var(--day-bg);
-      border: none;
       padding: 8px 14px;
-      font-size: 0.95rem;
+      border: none;
       border-radius: 999px;
+      font-size: 0.95rem;
       cursor: pointer;
       text-decoration: none;
+      transition: background-color 0.5s ease, color 0.5s ease;
     }
 
     body.night .waitlist-button {
@@ -98,26 +99,22 @@
 
     .slider {
       position: absolute;
-      cursor: pointer;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
+      top: 0; left: 0; right: 0; bottom: 0;
       background-color: #ccc;
-      transition: .4s;
+      transition: 0.4s;
       border-radius: 34px;
     }
 
     .slider:before {
-      position: absolute;
       content: "☀️";
+      position: absolute;
       height: 26px;
       width: 26px;
       left: 4px;
       bottom: 4px;
       background-color: white;
-      transition: .4s;
       border-radius: 50%;
+      transition: 0.4s;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -135,26 +132,72 @@
 
     .symbol {
       font-size: 3rem;
-      margin-top: -150px;
+      margin-top: -100px;
     }
 
     .product-image {
       width: 380px;
       max-width: 90vw;
-      margin-top: 20px;
       border-radius: 8px;
+      margin-top: 20px;
     }
 
-    .night .product-image.day { display: none; }
-    .night .product-image.night { display: inline-block; }
-    .day .product-image.night { display: none; }
+    .counter-wrapper {
+      margin-top: 60px;
+      width: 100%;
+      position: relative;
+    }
+
+    .counter-line {
+      height: 4px;
+      background: #999;
+      width: 90%;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .counter-label {
+      position: absolute;
+      top: -24px;
+      font-weight: 600;
+      font-size: 1.2rem;
+      background-color: var(--day-bg);
+      color: var(--day-text);
+      padding: 2px 6px;
+      border-radius: 4px;
+      transform: translateX(-50%);
+    }
+
+    body.night .counter-label {
+      background-color: var(--night-bg);
+      color: var(--night-text);
+    }
+
+    .tick-marks {
+      position: relative;
+      width: 90%;
+      margin: 10px auto 0;
+      height: 20px;
+    }
+
+    .tick-marks span {
+      position: absolute;
+      bottom: 0;
+      transform: translateX(-50%);
+      font-size: 0.7rem;
+      color: var(--day-text);
+    }
+
+    body.night .tick-marks span {
+      color: var(--night-text);
+    }
 
     .crafted-line {
       position: fixed;
       bottom: 48px;
       width: 100%;
       text-align: center;
-      font-weight: 600;
+      font-weight: bold;
       font-size: 1rem;
       z-index: 998;
       color: var(--day-text);
@@ -173,14 +216,10 @@
       color: var(--day-text);
       text-decoration: none;
       z-index: 1002;
-      background: var(--day-bg);
-      padding: 4px 8px;
-      border-radius: 4px;
     }
 
     .night .about-link {
       color: var(--night-text);
-      background: var(--night-bg);
     }
 
     .social-links {
@@ -214,7 +253,6 @@
     .night .bottom-banner {
       background-color: var(--night-bg);
       color: var(--night-text);
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     .bottom-banner .marquee span {
@@ -222,36 +260,21 @@
       white-space: nowrap;
       padding-left: 100%;
       animation: scroll-banner 60s linear infinite;
+      will-change: transform;
     }
 
     @keyframes scroll-banner {
       0% { transform: translateX(0); }
       100% { transform: translateX(-100%); }
     }
-
-    @media (max-width: 768px) {
-      .header { font-size: 1.8rem; }
-      .header span { font-size: 1.1rem; }
-      .symbol { font-size: 2.4rem; margin-top: -100px; }
-      .waitlist-button { font-size: 0.85rem; padding: 6px 10px; }
-    }
-
-    @media (max-width: 480px) {
-      .header { font-size: 1.4rem; }
-      .header span { font-size: 0.9rem; }
-      .symbol { font-size: 2rem; margin-top: -80px; }
-      .waitlist-button { font-size: 0.75rem; padding: 5px 8px; }
-    }
   </style>
 </head>
 <body class="day">
   <a href="waitlist.html" class="waitlist-button">Join the Waitlist</a>
-
   <div class="header">
     bare formulas
     <span>Clinical Skincare, Transparent by Design.</span>
   </div>
-
   <div class="toggle-container">
     <label class="switch">
       <input type="checkbox" id="modeToggle" onclick="toggleMode()">
@@ -263,11 +286,30 @@
     <div class="symbol" id="symbol">☀️</div>
     <img src="day products.png" alt="Day Products" class="product-image day" id="productImageDay">
     <img src="night products.png" alt="Night Products" class="product-image night" id="productImageNight" style="display:none">
+
+    <!-- Counter Section -->
+    <div class="counter-wrapper">
+      <div class="counter-line" id="line">
+        <div class="counter-label" id="countLabel">Loading...</div>
+      </div>
+      <div class="tick-marks">
+        <span style="left: 0%">0</span>
+        <span style="left: 10%">1000</span>
+        <span style="left: 20%">2000</span>
+        <span style="left: 30%">3000</span>
+        <span style="left: 40%">4000</span>
+        <span style="left: 50%">5000</span>
+        <span style="left: 60%">6000</span>
+        <span style="left: 70%">7000</span>
+        <span style="left: 80%">8000</span>
+        <span style="left: 90%">9000</span>
+        <span style="left: 100%">10,000</span>
+      </div>
+    </div>
   </div>
 
-  <div class="crafted-line"><strong>Crafted beneath Canadian Skies</strong></div>
-
-  <a class="about-link" href="about.html">About us</a>
+  <div class="crafted-line">Crafted beneath Canadian Skies</div>
+  <a class="about-link" href="about.html">About Us</a>
 
   <div class="social-links">
     <a href="https://www.facebook.com/profile.php?id=61575804246437" target="_blank"><img src="facebook-icon.png" alt="Facebook"></a>
@@ -277,9 +319,7 @@
 
   <div class="bottom-banner">
     <div class="marquee">
-      <span>
-        • coming soon • coming soon • coming soon • coming soon • coming soon • coming soon • coming soon • coming soon • coming soon • coming soon •
-      </span>
+      <span>• coming soon • coming soon • coming soon • coming soon • coming soon • coming soon • coming soon • coming soon •</span>
     </div>
   </div>
 
@@ -306,6 +346,23 @@
         dayImg.style.display = 'inline-block';
       }
     }
+
+    // Realtime counter logic
+    const COUNTER_URL = 'https://script.google.com/macros/s/AKfycbwaYyox1-fl7qOV4HdX8ErokHENHpbswpxEu_rur5lxFTV5Akkcsy_PWbIelRnQLdh9hw/exec';
+    const OFFSET = 500;
+
+    fetch(COUNTER_URL)
+      .then(res => res.json())               // parse JSON
+      .then(data => {
+        const fullCount = OFFSET + (data.count || 0);
+        const label = document.getElementById('countLabel');
+        const percent = Math.min((fullCount / 10000) * 100, 100);
+        label.textContent = `${fullCount} Joined`;
+        label.style.left = `${percent}%`;
+      })
+      .catch(() => {
+        document.getElementById('countLabel').textContent = "500+ Joined";
+      });
   </script>
 </body>
 </html>

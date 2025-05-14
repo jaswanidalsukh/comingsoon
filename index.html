@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Bare Formulas – Coming Soon</title>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600&display=swap" rel="stylesheet">
   <style>
@@ -13,21 +13,18 @@
       --night-text: #f4f1ec;
     }
 
-    body.day {
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Manrope', sans-serif;
       background-color: var(--day-bg);
       color: var(--day-text);
+      transition: background-color 0.4s ease, color 0.4s ease;
     }
 
     body.night {
       background-color: var(--night-bg);
       color: var(--night-text);
-    }
-
-    body {
-      font-family: 'Manrope', sans-serif;
-      margin: 0;
-      padding: 0;
-      transition: background-color 0.5s ease, color 0.5s ease;
     }
 
     .container {
@@ -36,8 +33,8 @@
       align-items: center;
       justify-content: center;
       min-height: 100vh;
-      text-align: center;
       padding: 1rem;
+      text-align: center;
     }
 
     .header {
@@ -48,6 +45,7 @@
       font-size: 2.4rem;
       font-weight: 700;
       text-align: center;
+      z-index: 10;
     }
 
     .header span {
@@ -71,6 +69,7 @@
       cursor: pointer;
       text-decoration: none;
       transition: background-color 0.5s ease, color 0.5s ease;
+      z-index: 1001;
     }
 
     body.night .waitlist-button {
@@ -82,6 +81,7 @@
       position: absolute;
       top: 20px;
       right: 30px;
+      z-index: 1001;
     }
 
     .switch {
@@ -132,7 +132,8 @@
 
     .symbol {
       font-size: 3rem;
-      margin-top: -100px;
+      margin-top: -60px;
+      z-index: 10;
     }
 
     .product-image {
@@ -222,20 +223,6 @@
       color: var(--night-text);
     }
 
-    .social-links {
-      position: fixed;
-      bottom: 60px;
-      right: 30px;
-      display: flex;
-      gap: 16px;
-      z-index: 1000;
-    }
-
-    .social-links a img {
-      width: 24px;
-      height: 24px;
-    }
-
     .bottom-banner {
       position: fixed;
       bottom: 0;
@@ -311,12 +298,6 @@
   <div class="crafted-line">Crafted beneath Canadian Skies</div>
   <a class="about-link" href="about.html">About Us</a>
 
-  <div class="social-links">
-    <a href="https://www.facebook.com/profile.php?id=61575804246437" target="_blank"><img src="facebook-icon.png" alt="Facebook"></a>
-    <a href="https://x.com/bareformulas" target="_blank"><img src="twitter-icon.png" alt="Twitter"></a>
-    <a href="https://www.instagram.com/bareformulas/" target="_blank"><img src="instagram-icon.png" alt="Instagram"></a>
-  </div>
-
   <div class="bottom-banner">
     <div class="marquee">
       <span>• coming soon • coming soon • coming soon • coming soon • coming soon • coming soon • coming soon • coming soon •</span>
@@ -347,12 +328,11 @@
       }
     }
 
-    // Realtime counter logic
     const COUNTER_URL = 'https://script.google.com/macros/s/AKfycbwaYyox1-fl7qOV4HdX8ErokHENHpbswpxEu_rur5lxFTV5Akkcsy_PWbIelRnQLdh9hw/exec';
     const OFFSET = 500;
 
     fetch(COUNTER_URL)
-      .then(res => res.json())               // parse JSON
+      .then(res => res.json())
       .then(data => {
         const fullCount = OFFSET + (data.count || 0);
         const label = document.getElementById('countLabel');

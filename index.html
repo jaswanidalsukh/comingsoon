@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Bare Formulas – Coming Soon</title>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600&display=swap" rel="stylesheet">
   <style>
@@ -46,11 +46,13 @@
       font-weight: 700;
       text-align: center;
       z-index: 10;
+      line-height: 1.2;
+      word-break: break-word;
     }
 
     .header span {
       display: block;
-      font-size: 1.4rem;
+      font-size: 1.2rem;
       font-weight: 400;
       margin-top: 8px;
       opacity: 0.8;
@@ -59,7 +61,7 @@
     .waitlist-button {
       position: absolute;
       top: 20px;
-      left: 30px;
+      left: 16px;
       background-color: var(--day-text);
       color: var(--day-bg);
       padding: 8px 14px;
@@ -79,7 +81,7 @@
     .toggle-container {
       position: absolute;
       top: 20px;
-      right: 30px;
+      right: 16px;
       z-index: 1001;
     }
 
@@ -130,13 +132,13 @@
     }
 
     .symbol {
-      font-size: 3rem;
+      font-size: 2.6rem;
       margin-top: -60px;
       z-index: 10;
     }
 
     .product-image {
-      width: 380px;
+      width: 360px;
       max-width: 90vw;
       border-radius: 8px;
       margin-top: 20px;
@@ -166,6 +168,7 @@
       padding: 2px 6px;
       border-radius: 4px;
       transform: translateX(-50%);
+      white-space: nowrap;
     }
 
     body.night .counter-label {
@@ -209,8 +212,8 @@
 
     .about-link {
       position: fixed;
-      bottom: 14px;
-      left: 20px;
+      bottom: 18px;
+      left: 16px;
       font-size: 0.85rem;
       font-weight: 500;
       color: var(--day-text);
@@ -230,7 +233,7 @@
       color: var(--day-text);
       white-space: nowrap;
       overflow: hidden;
-      font-size: 1.5rem;
+      font-size: 1.2rem;
       padding: 6px 0;
       border-top: 1px solid rgba(0, 0, 0, 0.1);
       z-index: 999;
@@ -253,6 +256,45 @@
       0% { transform: translateX(0); }
       100% { transform: translateX(-100%); }
     }
+
+    @media (max-width: 480px) {
+      .header {
+        font-size: 1.8rem;
+      }
+      .header span {
+        font-size: 1rem;
+      }
+      .symbol {
+        font-size: 2.2rem;
+      }
+      .counter-label {
+        font-size: 1rem;
+      }
+      .about-link {
+        font-size: 0.8rem;
+      }
+      .bottom-banner {
+        font-size: 1rem;
+      }
+    }
+
+    @media (max-width: 900px) and (min-width: 481px) {
+      .header {
+        font-size: 2rem;
+      }
+      .header span {
+        font-size: 1.1rem;
+      }
+      .product-image {
+        width: 320px;
+      }
+      .counter-label {
+        font-size: 1.05rem;
+      }
+      .bottom-banner {
+        font-size: 1.1rem;
+      }
+    }
   </style>
 </head>
 <body class="day">
@@ -273,9 +315,8 @@
     <img src="day products.png" alt="Day Products" class="product-image" id="productImageDay">
     <img src="night products.png" alt="Night Products" class="product-image" id="productImageNight" style="display:none">
 
-    <!-- Counter Section -->
     <div class="counter-wrapper">
-      <div class="counter-line" id="line">
+      <div class="counter-line">
         <div class="counter-label" id="countLabel">Loading...</div>
       </div>
       <div class="tick-marks">
@@ -299,7 +340,7 @@
 
   <div class="bottom-banner">
     <div class="marquee">
-      <span>• coming soon • coming soon • coming soon • coming soon • coming soon • coming soon • coming soon • coming soon •</span>
+      <span>• coming soon • coming soon • coming soon • coming soon • coming soon • coming soon •</span>
     </div>
   </div>
 
